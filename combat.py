@@ -1,0 +1,5 @@
+"""
+docstring
+"""
+
+class CombatEvent: ...

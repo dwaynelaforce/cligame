@@ -1,0 +1,35 @@
+{
+  "id": "StartingRoom",
+  "name": "Starting Room",
+  "text": "You find yourself in the starting room.",
+  "north": "NorthHallway",
+  "east": null,
+  "south": null,
+  "west": null,
+  "containers": [
+    {
+      "id": "StartingRoomChest",
+      "name": "chest",
+      "desc": "A small wooden chest. It doesn't appear locked. You wonder what it could have inside.",
+      "locked": false,
+      "closed": true,
+      "contents": [
+        {
+          "id": "SteelHelmet",
+          "name": "helmet",
+          "desc": "A sturdy steel helmet",
+          "type": "Armor",
+          "bodyPart": "head",
+          "rating": 10
+        },
+        {
+          "id": "sword",
+          "name": "sword",
+          "desc": "A sharp sword",
+          "type": "Weapon",
+          "dmg": 5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "Library",
+  "name": "Library",
+  "text": "You find yourself in a library, but it appears mostly empty.",
+  "north": null,
+  "east": null,
+  "south": "NorthHallway",
+  "west": null,
+  "containers": [
+    {
+      "id": "Bookshelf",
+      "name": "bookshelf",
+      "desc": "One book remains on the shelf. You wonder what happened to the rest of them...",
+      "closed": false,
+      "locked": false,
+      "contents": [
+        {
+          "id": "SpellTome.HealSelf",
+          "name": "spelltome",
+          "desc": "Spell Tome: HealSelf",
+          "type": "SpellTome"
+        }
+      ]
+    }
+  ]
+}

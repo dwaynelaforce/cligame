@@ -1,0 +1,9 @@
+{
+  "id": "NorthHallway",
+  "name": "North Hallway",
+  "text": "You find yourself in a grand hallway.",
+  "north": "Library",
+  "east": null,
+  "south": "StartingRoom",
+  "west": null
+}
