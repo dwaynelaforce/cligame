@@ -7,16 +7,17 @@ from __future__ import annotations
 from typing import Union
 
 from game_exceptions import ItemNotFound
-from interactables import Item, Armor, Weapon
+from interactables import Inspectable, Item, Armor, Weapon
 from spells import Spell
 
 MAX_HEALTH = 100
 MAX_MAGIC = 100
 
-class PlayerCharacter:
+class PlayerCharacter(Inspectable):
     health: int = MAX_HEALTH
     magic: int = MAX_MAGIC
     spells: set[Spell] = set()
+    gold: int = 0
     inventory: set[Item] = set()
     armor: dict[str, Armor|None] = {
         'head': None,
@@ -34,32 +35,39 @@ class PlayerCharacter:
     def armor_rating(self) -> int:
         return sum([a.rating for a in self.armor.values() if a is not None])
     
+    @property
+    def equipped(self) -> set[Item]:
+        return {
+            e for e in (list(self.armor.values()) + [self.weapon]) if e is not None
+        }
+
     def print_inventory(self):
-        if not self.inventory:
-            print("Inventory is empty.")
-            return
-        print("Inventory:")
+        print(f"Inventory: [{self.gold} gold, {len(self.inventory)} items]")
         for item in self.inventory:
             print(f" * {item}")
 
     def print_spellbook(self):
-        if not self.spells:
-            print("No spells in spellbook.")
-            return
-        print("Spells:")
+        print(f"Spellbook: [{len(self.spells)} spells]")
         for spell in self.spells:
             print(spell)
 
+    def print_equipped(self):
+        print(f"Equipped: [{len(self.equipped)} items]")
+        for item in self.equipped:
+            print(f" * {item}")
+
     def inspect(self):
         print("Player Info:")
-        print(f"Health {self.health}/{MAX_HEALTH}")
-        print(f"Magic {self.magic}/{MAX_MAGIC}")
-        print(f"Armor Rating {self.armor_rating}")
-        equipped = [self.weapon] + [a for a in self.armor.values()]
-        equipped = [e for e in equipped if e is not None]
-        print(f"Equipped: {len(equipped)} items")
-        for item in equipped:
-            print(f" * {item}")
+        print(f"Health: {self.health}/{MAX_HEALTH}")
+        print(f"Magic: {self.magic}/{MAX_MAGIC}")
+        print(f"Armor Rating: {self.armor_rating}")
+        self.print_equipped()
+        self.print_inventory()
+        self.print_spellbook()
+
+    def add_to_inventory(self, item: Item):
+        self.inventory.add(item)
+        print(f"You take the {item.name} into your inventory.")
 
     def heal(self, amt: int):
         self.health += amt
@@ -77,9 +85,10 @@ class PlayerCharacter:
         self.inventory.remove(item)
 
     def __repr__(self):
-        equipped_ct = ... # TODO count equipped items correctly
         return (
             f"Player(HP: {self.health}, MP: {self.magic}, AR:{self.armor_rating}), "
-            f"Inventory: [{len(self.inventory)} items], Equipped: [{equipped_ct} items]]"
+            f"Inventory: [{len(self.inventory)} items], "
+            f"Equipped: [{len(self.equipped)} items], "
+            f"Spellbook: [{len(self.spells)} spells]"
         )
 

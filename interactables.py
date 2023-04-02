@@ -2,11 +2,16 @@
 docstring
 """
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from game_exceptions import *
 
-class Interactable(ABC):
+class Inspectable(ABC):
+    """Abstract class for any game asset that can be inspected."""
+    @abstractmethod
+    def inspect(self): ...
+
+class Interactable(Inspectable):
     id: str
     name: str
     desc: str

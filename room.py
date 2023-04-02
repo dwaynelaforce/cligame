@@ -45,9 +45,8 @@ class Room:
     @property
     def all_interactables(self) -> set[Interactable]:
         interactables = self.items.union(self.containers)
-        for container in self.containers:
-            if not container.locked:
-                interactables = interactables.union(container.contents)
+        for container in [c for c in self.containers if not c.closed]:
+            interactables = interactables.union(container.contents)
         return interactables
 
     def inspect(self):
@@ -83,13 +82,16 @@ class Room:
             print(f" * {i.name}")
 
     def take_item(self, item: Item):
-        self.player.inventory.add(item)
         if item in self.items:
             self.items.remove(item)
-        for container in self.containers:
+            self.player.add_to_inventory(item)
+            return
+        for container in [c for c in self.containers if not c.closed]:
             if item in container.contents:
                 container.contents.remove(item)
-        print(f"You take the {item.name} into your inventory.")
+                self.player.add_to_inventory(item)
+                return
+        raise ItemNotFound
 
     def open_container(self, container: Container):
         if container.locked:
