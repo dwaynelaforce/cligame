@@ -7,8 +7,8 @@ from typing import Self
 from pathlib import Path
 
 from player import PlayerCharacter
-from interactables import Interactable, Item, Container, NPC
-from game_exceptions import ItemNotFound
+from classes.base_classes import Interactable, Item, Container, NPC
+from classes.exceptions import ItemNotFound
 
 ROOMS_DIR = Path("./rooms").absolute()
 DIRECTIONS = ["north", "east", "south", "west"]
@@ -25,7 +25,6 @@ class Room:
     items: set[Item]
     containers: set[Container]
     # npcs: set[NPC]
-    actions: dict[str, callable]
     
     def __init__(self, conf: dict, player: PlayerCharacter) -> Self:
         self.player = player

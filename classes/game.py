@@ -8,8 +8,8 @@ import json, sys
 
 from player import PlayerCharacter
 from room import Room, ROOMS_DIR, DIRECTIONS
-from game_exceptions import *
-from interactables import Interactable, Item, Container, NPC
+from classes.exceptions import *
+from classes.base_classes import Interactable, Item, Container, NPC
 from spells import Spell
 from combat import CombatEvent
 

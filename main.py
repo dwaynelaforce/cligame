@@ -1,8 +1,10 @@
 """
-docstring
+Run the game by executing command:
+Unix: python3 main.py
+Windows: python main.py
 """
 
-from game import Game
+from classes.game import Game
 
 def main():
     Game()
